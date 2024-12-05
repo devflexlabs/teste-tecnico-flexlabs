@@ -1,99 +1,76 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# FlexLabs - Teste técnico
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este é um técnico criado pela equipe do FlexLabs montado para avaliar as capacidade de um programador de implementar funcionalidades em uma aplicação Backend usando NestJS + PrismaORM.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Abaixo é possível conferir as tarefas que devem ser realizadas para a conclusão do teste, instruções para realizar a entrega do código implementado, assim como o material de referência que pode ser usado como auxilio na realização do teste
 
-## Description
+## Tarefas
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Segue a lista de tarefas que devem ser realizadas para concluir o teste.
+Todos os itens devem ser entregues para que a submissão do teste seja considerada.
 
-## Project setup
+### 1. Para começar
 
-```bash
-$ npm install
+Clone o repositório localmente na sua máquina, usando o comando
+
+```
+git  clone https://github.com/devflexlabs/teste-tecnico-flexlabs.git
 ```
 
-## Compile and run the project
+Após ter clonado o projeto, crie uma branch local de nome qualquer para realizar o desenvolvimento do teste e faça o checkout para essaa nova branch.
 
-```bash
-# development
-$ npm run start
+### 2. Implementando funcionalidades
 
-# watch mode
-$ npm run start:dev
+Na classe Service da entidade Cliente (localizada no arquivo clients.service.ts) altere o método de criação de Cliente para que ele verifique se algum cliente com o email informado no request já existe. Caso essa validação for verdadeira (cliente com email informado já existe), o método deve retornar uma exceção HTTP com um status 409.
 
-# production mode
-$ npm run start:prod
+### 3. Tratando exceções
+
+Após realizar a verificação descrita no item acima, crie uma classe para exibir o erro de **cliente com o email informado já existe** de forma personalizada. Essa classe deve ser implementada nos mesmos moldes da classe UserNotFound, presente no código. Após isso, implemente essa classe de tratamento de exceções na verificação do método de criar clientes.
+
+### 4. Criando novas entidades
+
+Crie uma entidade de Produtos, que deve possuir os seguintes atributos:
+
+- Nome (string);
+- Descrição (string);
+- Preço (number);
+- Data de criação (Date);
+
+A criação dessa entidade deve ser realizada no mesmo padrão estabelecido para a entidade de clientes, que foi gerada através da CLI do NestJS, através da funcionalidade de resources (conferir a documentação).
+
+Após criar a classe Produto a nível de domínio, crie também um modelo para ela no arquivo schema.prisma e execute o comando de migração do ORM:
+
+```
+npx prisma migrate dev
 ```
 
-## Run tests
+### 5. Criando um CRUD
 
-```bash
-# unit tests
-$ npm run test
+Agora, você deve realizar a implementação das rotas CRUD para a entidade de Produtos, seguindo o mesmo padrão estabelecido para a entidade de Clientes. A implementação dos padrões de design Mapper, View e DTO, assim como das classes de tratamento de exceções serão consideradas durante a avaliação.
 
-# e2e tests
-$ npm run test:e2e
+Para testar o seu CRUD, você pode usar o cliente HTTP de sua preferência, mas nos arquivos do teste é possível encontrar um arquivo de rotas do Insomnia, contendo as rotas pré-criadas para a entidade Produtos e também todas as rotas relacionadas com a entidade Clientes.
 
-# test coverage
-$ npm run test:cov
-```
+### 6. Implementando relacionamentos
 
-## Deployment
+As entidades de Produtos e Clientes devem conter um relacionamento de Um para Muitos (um usuário pode possuir mais de um produto). Você deve criar esse relacionamento dentro do arquivo prisma.schema, mas também a nível de domínio, alterando a classe Client para que ela aceite um array de Produtos como um de seus atributos.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Após isso você deve alterar os arquivos necessários para que a aplicação seja executada sem erros (inclusive os de teste)
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## Entrega
 
-```bash
-$ npm install -g mau
-$ mau deploy
-```
+Para realizar a entrega das tarefas, realize um push da sua branch de trabalho para o github do projeto. Após isso, crie um pull request da sua branch de trabalho para a branch main.
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Materiais de Referência
 
-## Resources
+Além do código pré-implementado da aplicação, você pode querer consultar a documentação das ferramentas que devem ser usadas para a realização do teste.
 
-Check out a few resources that may come in handy when working with NestJS:
+**Documentação do NestJS** - https://docs.nestjs.com/
+**Documentação do PrismaORM** - https://www.prisma.io/docs
+**ChatGPT** - https://chatgpt.com/
+**Google** - https://www.google.com.
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## Dúvidas
 
-## Support
+Qualquer dúvida que surgir durante a realização das tarefas, sinta-se livre para entrar em contato através do email tecnologia@grupoflex.com.br
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### Boa realização do teste!
