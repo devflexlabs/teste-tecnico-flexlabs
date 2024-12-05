@@ -19,6 +19,30 @@ git  clone https://github.com/devflexlabs/teste-tecnico-flexlabs.git
 
 Após ter clonado o projeto, crie uma branch local de nome qualquer para realizar o desenvolvimento do teste e faça o checkout para essaa nova branch.
 
+Para executar o projeto, você deve primeiro instalar as dependências do projeto usando o comando
+
+```
+npm install
+```
+
+Após isso, crie um arquivo de configurações de ambiente (.env). Nele você deve criar uma variável DATABASE_URL e fornecer a url de conexão de um banco de dados Postgres. Esse banco de dados pode ser hospedado localmente, mas é recomendado o uso da url de um banco de dados já criado para a realização do teste:
+
+```
+DATABASE_URL="postgresql://postgres:IvOWJvWDdHREaSoFkJLFDpbvEjPuTrFu@autorack.proxy.rlwy.net:38791/railway"
+```
+
+Em seguida, execute o comando que gera o cliente do Prisma ORM, usando:
+
+```
+npx prisma generate
+```
+
+E para inicilizar o servidor, basta executar o comando de desenvolvimento do NestJS:
+
+```
+npm run start:dev
+```
+
 ### 2. Implementando funcionalidades
 
 Na classe Service da entidade Cliente (localizada no arquivo clients.service.ts) altere o método de criação de Cliente para que ele verifique se algum cliente com o email informado no request já existe. Caso essa validação for verdadeira (cliente com email informado já existe), o método deve retornar uma exceção HTTP com um status 409.
