@@ -27,8 +27,12 @@ export class ClientsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.clientsService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const client = await this.clientsService.findOne(id);
+    return {
+      message: "Client found!",
+      client: ClientsView.toHttp(client)
+    }
   }
 
   @Patch(':id')

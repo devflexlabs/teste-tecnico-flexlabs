@@ -26,8 +26,12 @@ export class ClientsService {
     return clients;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} client`;
+  async findOne(id: string) {
+    const client = await this.clientsRepository.loadById(id);
+    if (!client) {
+      throw new ClientNotFound(id)
+    }
+    return client;
   }
 
   update(id: number, updateClientDto: UpdateClientDto) {
