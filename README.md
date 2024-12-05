@@ -64,10 +64,10 @@ Para realizar a entrega das tarefas, realize um push da sua branch de trabalho p
 
 Além do código pré-implementado da aplicação, você pode querer consultar a documentação das ferramentas que devem ser usadas para a realização do teste.
 
-**Documentação do NestJS** - https://docs.nestjs.com/
-**Documentação do PrismaORM** - https://www.prisma.io/docs
-**ChatGPT** - https://chatgpt.com/
-**Google** - https://www.google.com.
+- **Documentação do NestJS** - https://docs.nestjs.com/
+- **Documentação do PrismaORM** - https://www.prisma.io/docs
+- **ChatGPT** - https://chatgpt.com/
+- **Google** - https://www.google.com.
 
 ## Dúvidas
 
