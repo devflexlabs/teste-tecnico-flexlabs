@@ -3,6 +3,7 @@ import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
 import { ClientsRepository } from './clients.repository';
 import { Client } from './entities/client.entity';
+import { ClientNotFound } from './error/client-not-found.error';
 
 @Injectable()
 export class ClientsService {
@@ -32,7 +33,12 @@ export class ClientsService {
     return `This action updates a #${id} client`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} client`;
+  async remove(id: string) {
+    const client = await this.clientsRepository.loadById(id);
+    if (!client) {
+      throw new ClientNotFound(id)
+    }
+    await this.clientsRepository.delete(id);
+    return client;
   }
 }
