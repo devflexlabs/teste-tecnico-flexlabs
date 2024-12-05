@@ -2,23 +2,25 @@ import { DatabaseService } from "src/database/database.service";
 import { Client } from "./entities/client.entity";
 import { PrismaClientsMapper } from "./mapper/clients.mapper";
 import { UpdateClientDto } from "./dto/update-client.dto";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class ClientsRepository {
   constructor(private db: DatabaseService) {}
 
-  async create(client: Client): Promise<Client> {
+  async save(client: Client): Promise<Client> {
     await this.db.client.create({
       data: PrismaClientsMapper.toPrisma(client)
     })
     return client;
   }
 
-  async findAll(): Promise<Client[]> {
+  async loadAll(): Promise<Client[]> {
     const prismaClients = await this.db.client.findMany()
     return prismaClients.map(PrismaClientsMapper.toDomain)
   }
 
-  async findOne(id: string): Promise<Client> {
+  async loadById(id: string): Promise<Client> {
     const prismaClient = await this.db.client.findFirst({
       where: { id },
     })
@@ -33,7 +35,7 @@ export class ClientsRepository {
     return PrismaClientsMapper.toDomain(prismaClient);
   }
 
-  async remove(id: string): Promise<Client> {
+  async delete(id: string): Promise<Client> {
     const prismaClient = await this.db.client.delete({
       where: { id },
     })
