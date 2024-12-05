@@ -36,8 +36,12 @@ export class ClientsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto) {
-    return this.clientsService.update(+id, updateClientDto);
+  async update(@Param('id') id: string, @Body() body: UpdateClientDto) {
+    const client = await this.clientsService.update(id, body); 
+    return {
+      message: 'Client updated successfully!',
+      client: ClientsView.toHttp(client)
+    }
   }
 
   @Delete(':id')

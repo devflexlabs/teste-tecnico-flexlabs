@@ -34,8 +34,13 @@ export class ClientsService {
     return client;
   }
 
-  update(id: number, updateClientDto: UpdateClientDto) {
-    return `This action updates a #${id} client`;
+  async update(id: string, request: UpdateClientDto) {
+    const clientExists = await this.clientsRepository.loadById(id)
+    if (!clientExists) {
+      throw new ClientNotFound(id)
+    }
+    const client = await this.clientsRepository.update(id, request)
+    return client
   }
 
   async remove(id: string) {
