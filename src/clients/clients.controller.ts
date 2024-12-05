@@ -18,8 +18,12 @@ export class ClientsController {
   }
 
   @Get()
-  findAll() {
-    return this.clientsService.findAll();
+  async findAll() {
+    const clients = await this.clientsService.findAll(); 
+    return {
+      message: "Clients found!",
+      clients: clients.map(ClientsView.toHttp)
+    }
   }
 
   @Get(':id')

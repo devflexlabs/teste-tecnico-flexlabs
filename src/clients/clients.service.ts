@@ -21,8 +21,9 @@ export class ClientsService {
     return client;
   }
 
-  findAll() {
-    return `This action returns all clients`;
+  async findAll() {
+    const clients = await this.clientsRepository.loadAll();
+    return clients;
   }
 
   findOne(id: number) {
